@@ -17,21 +17,17 @@ public class Main {
     }
 
     private static boolean isCorrectSize(String[][] array){
-        if(array.length != 4){
-            try {
+        try {
+            if(array.length != 4){
                 throw new MyArraySizeException("Неподходящая мерность массива");
-            } catch (MyArraySizeException e) {
-                return false;
             }
-        }
-        for(int i = 0; i < 4; i++){
-            if(array[i].length != 4){
-                try {
-                    throw new MyArraySizeException("Размер строки " + i + " не равна 4");
-                } catch (MyArraySizeException e) {
-                    return false;
+            for(int i = 0; i < 4; i++){
+                if(array[i].length != 4){
+                        throw new MyArraySizeException("Размер строки " + i + " не равна 4");
+                    }
                 }
-            }
+            }catch (MyArraySizeException e) {
+            return false;
         }
         return true;
     }
@@ -44,12 +40,9 @@ public class Main {
                     try {
                         number = Integer.valueOf(array[i][j]);
                     } catch (NumberFormatException e) {
-                        try {
-                            throw new MayArrayDatAException("Указано неверное значение в массиве в ячейке " +
+                       new MayArrayDatAException("Указано неверное значение в массиве в ячейке " +
                                     "[" + i + "][" + j + "]");
-                        } catch (MayArrayDatAException mayArrayDatAException) {
-                            return;
-                        }
+                        return;
                     }
                     if (isCheckLimited(sum, number)) {
                         sum += number;
