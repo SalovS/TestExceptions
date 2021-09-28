@@ -37,13 +37,15 @@ public class Main {
             int number = 0, sum = 0;
             for (int i = 0; i < 4; i++) {
                 for (int j = 0; j < 4; j++) {
-                    try {
+                        if(isNotANumber(array[i][j])) {
+                            try {
+                                throw new MayArrayDatAException("Указано неверное значение в массиве в ячейке " +
+                                        "[" + i + "][" + j + "]");
+                            } catch (MayArrayDatAException e) {
+                                return;
+                            }
+                        }
                         number = Integer.valueOf(array[i][j]);
-                    } catch (NumberFormatException e) {
-                       new MayArrayDatAException("Указано неверное значение в массиве в ячейке " +
-                                    "[" + i + "][" + j + "]");
-                        return;
-                    }
                     if (isCheckLimited(sum, number)) {
                         sum += number;
                     } else {
@@ -53,6 +55,15 @@ public class Main {
             }
             System.out.println("Сумма чисел матрицы : " + sum);
         }
+    }
+
+    public static boolean isNotANumber(String text){
+        try {
+            int number = Integer.valueOf(text);
+        } catch (NumberFormatException e) {
+            return true;
+        }
+        return false;
     }
 
     private static boolean isCheckLimited(int sum, int number){
